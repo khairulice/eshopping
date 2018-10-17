@@ -1,43 +1,85 @@
-[debug] [2018-10-17T17:35:37.645Z] ----------------------------------------------------------------------
-[debug] [2018-10-17T17:35:37.654Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\khairul\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
-[debug] [2018-10-17T17:35:37.655Z] CLI Version:   5.1.1
-[debug] [2018-10-17T17:35:37.655Z] Platform:      win32
-[debug] [2018-10-17T17:35:37.655Z] Node Version:  v8.11.3
-[debug] [2018-10-17T17:35:37.656Z] Time:          Wed Oct 17 2018 23:35:37 GMT+0600 (Bangladesh Standard Time)
-[debug] [2018-10-17T17:35:37.657Z] ----------------------------------------------------------------------
+[debug] [2018-10-17T17:36:50.167Z] ----------------------------------------------------------------------
+[debug] [2018-10-17T17:36:50.174Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\khairul\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init
+[debug] [2018-10-17T17:36:50.175Z] CLI Version:   5.1.1
+[debug] [2018-10-17T17:36:50.175Z] Platform:      win32
+[debug] [2018-10-17T17:36:50.175Z] Node Version:  v8.11.3
+[debug] [2018-10-17T17:36:50.176Z] Time:          Wed Oct 17 2018 23:36:50 GMT+0600 (Bangladesh Standard Time)
+[debug] [2018-10-17T17:36:50.176Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-10-17T17:35:37.693Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-10-17T17:35:37.695Z] > authorizing via signed-in user
-[debug] [2018-10-17T17:35:37.696Z] [iam] checking project vehicle-registration-19db3 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
-[debug] [2018-10-17T17:35:37.702Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/vehicle-registration-19db3:testIamPermissions  
-
-[debug] [2018-10-17T17:35:39.483Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-17T17:35:39.489Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/vehicle-registration-19db3  
- 
-[debug] [2018-10-17T17:35:39.956Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-17T17:36:50.207Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-17T17:36:50.209Z] > authorizing via signed-in user
 [info] 
-[info] === Deploying to 'vehicle-registration-19db3'...
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  F:\Products\Excercise\react\eshopping
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
 [info] 
-[info] i  deploying database, storage, firestore, hosting
-[info] i  database: checking rules syntax...
-[debug] [2018-10-17T17:35:39.982Z] >>> HTTP REQUEST PUT https://vehicle-registration-19db3.firebaseio.com/.settings/rules.json?dryRun=true  
- {
-  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
-[debug] [2018-10-17T17:35:41.051Z] <<< HTTP RESPONSE 200
-[info] +  database: rules syntax for database vehicle-registration-19db3 is valid
-[debug] [2018-10-17T17:35:41.056Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/vehicle-registration-19db3  
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, skipping
+[info] 
+=== Database Setup
+[info] 
+[info] Firebase Realtime Database Rules allow you to define how your data should be
+[info] structured and when your data can be read from and written to.
+[info] 
+[info] Skipping overwrite of Database Rules.
+[info] The rules defined in database.rules.json will be published when you do firebase deploy.
+[info] 
+=== Firestore Setup
+[debug] [2018-10-17T17:37:28.489Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-17T17:37:28.491Z] > authorizing via signed-in user
+[debug] [2018-10-17T17:37:28.497Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/vehicle-registration-19db3  
  
-[debug] [2018-10-17T17:35:43.057Z] <<< HTTP RESPONSE 200
-[info] i  storage: checking storage.rules for compilation errors...
-[debug] [2018-10-17T17:35:43.062Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/vehicle-registration-19db3:test  
+[debug] [2018-10-17T17:37:29.238Z] <<< HTTP RESPONSE 200
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[info] 
+=== Functions Setup
+[info] 
+[info] A functions directory will be created in your project with a Node.js
+[info] package pre-configured. Functions can be deployed with firebase deploy.
+[info] 
+[debug] [2018-10-17T17:37:40.190Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-17T17:37:40.193Z] > authorizing via signed-in user
+[debug] [2018-10-17T17:37:40.193Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/vehicle-registration-19db3  
+ 
+[debug] [2018-10-17T17:37:41.157Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-17T17:37:41.165Z] >>> HTTP REQUEST PATCH https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/vehicle-registration-19db3?updateMask=usageSettings  
 
-[debug] [2018-10-17T17:35:44.677Z] <<< HTTP RESPONSE 200
-[info] +  storage: rules file storage.rules compiled successfully
-[info] i  firestore: checking firestore.rules for compilation errors...
-[debug] [2018-10-17T17:35:44.913Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/vehicle-registration-19db3:test  
+[debug] [2018-10-17T17:37:41.168Z] >>> HTTP REQUEST PATCH https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/vehicle-registration-19db3?updateMask=usageSettings  
 
+[debug] [2018-10-17T17:37:43.550Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-17T17:37:43.660Z] <<< HTTP RESPONSE 200
+[info] +  Wrote functions/package.json
+[info] +  Wrote functions/index.js
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
