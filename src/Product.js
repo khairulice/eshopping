@@ -8,8 +8,8 @@ export default class Product extends Component {
     constructor() {
         super();
         this.state = {
-            products: []           
-        }        
+            products: []
+        }
     }
     componentDidMount() {
         var pRef = firebase.database().ref('Product');
@@ -42,8 +42,12 @@ export default class Product extends Component {
             </Jumbotron>)
         })
         return (<div>
-            <AddProduct/>                                 
-            {list}
+            <div>
+                <AddProduct />
+            </div>
+            <div>
+                {list}
+            </div>
         </div>)
     }
 }
