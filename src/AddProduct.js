@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import firebase from "firebase";
-import { Modal, Button, Popover, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Modal, Button, Popover, Tooltip, OverlayTrigger, FormGroup, ControlLabel, FormControl, HelpBlock } from "react-bootstrap";
 
 export default class AddProduct extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Name: '',
-            Price: 0,
-            Quantity: 0,
-            show: false
-        };
+    constructor(props, context) {
+        super(props, context);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+
+        this.state = {
+            product:{
+                Name: '',
+                Price: 0,
+                Quantity: 0
+            },
+            value: '',                               
+            show: false
+        };
     }
 
     handleClose() {
@@ -27,68 +30,101 @@ export default class AddProduct extends Component {
         this.setState({ show: true });
     }
 
+
     handleChange(event) {
         let name = event.target.name;
-        let value = event.target.value;
-        this.setState({ [name]: value });
+        let value = event.target.value;    
+        
+        this.setState(prevState => ({
+            product: {
+                ...prevState.product,
+                [name]:value
+            }
+        }))
+       
     }
 
-    handleSubmit(event) {       
+    handleSubmit(event) {
         event.preventDefault();
         let fb = firebase.database().ref('Product');
+        console.log(this.state.product);
         fb.push({
-            Name: this.state.Name,
-            Price: this.state.Price,
-            Quantity: this.state.Quantity
+            Name: this.state.product.Name,
+            Price: this.state.product.Price,
+            Quantity: this.state.product.Quantity
         });
 
-        this.setState({ show: false });
+        this.setState({
+            product:{
+            Name: '',
+            Price: 0,
+            Quantity: 0,
+            show: false
+        }});
     }
 
-    render() {
-        const popover = (
-            <Popover id="modal-popover" title="popover">
-                very popover. such engagement
-            </Popover>
-        );
-        const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
 
+    getValidationState() {
+        const length = this.state.Name.length;
+        if (length > 10) return 'success';
+        else if (length > 5) return 'warning';
+        else if (length > 0) return 'error';
+        return null;
+    }
+
+
+    render() {
         return (
             <div>
                 <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
                     Add New Product
                  </Button>
-
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add New Product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form onSubmit={this.handleSubmit}>
-                            <label>
-                                Product Name:
-                        <input
-                                    name="Name"
+
+                        <form>
+                            <FormGroup
+                                controlId="NameFG"
+                            >
+                                <ControlLabel>Name</ControlLabel>
+                                <FormControl
                                     type="text"
-                                    value={this.state.Name}
-                                    onChange={this.handleChange} />
-                            </label><br />
-                            <label>
-                                Price :
-                        <input
+                                    name="Name"
+                                    value={this.state.product.Name}
+                                    placeholder="Enter name"
+                                    onChange={this.handleChange}
+                                />
+                                <FormControl.Feedback />
+                                <HelpBlock>Name must be 5 digits</HelpBlock>
+                            </FormGroup>
+                            <FormGroup
+                                controlId="PriceFG"
+                            >
+                                <ControlLabel>Price</ControlLabel>
+                                <FormControl
+                                    type="number"
                                     name="Price"
+                                    value={this.state.product.Price}
+                                    placeholder="Enter price"
+                                    onChange={this.handleChange}
+                                />
+
+                            </FormGroup>
+                            <FormGroup
+                                controlId="QuantityFG"
+                            >
+                                <ControlLabel>Quantity</ControlLabel>
+                                <FormControl
                                     type="number"
-                                    value={this.state.Price}
-                                    onChange={this.handleChange} />
-                            </label><br />
-                            <label>
-                                Quantity :
-                        <input
                                     name="Quantity"
-                                    type="number"
-                                    value={this.state.Quantity}
-                                    onChange={this.handleChange} />
-                            </label>                         
+                                    value={this.state.product.Quantity}
+                                    placeholder="Enter quantity"
+                                    onChange={this.handleChange}
+                                />
+                            </FormGroup>
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -97,8 +133,6 @@ export default class AddProduct extends Component {
                     </Modal.Footer>
                 </Modal>
             </div>
-
-
         );
     }
-};
+}

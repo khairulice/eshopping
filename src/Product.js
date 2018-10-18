@@ -17,7 +17,7 @@ export default class Product extends Component {
             this.getData(snapshot.val());
         })
     }
-    
+
     getData(values) {
         let messagesVal = values;
         let messages = _(messagesVal)
@@ -42,8 +42,7 @@ export default class Product extends Component {
             </Jumbotron>)
         })
         return (<div>
-            <AddProduct>                
-            </AddProduct>            
+            <AddProduct/>                                 
             {list}
         </div>)
     }
