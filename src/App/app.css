@@ -30,3 +30,29 @@
     transform: rotate(360deg);
   }
 }
+.add-product{
+  margin: 20px;
+}
+
+.home-banner{
+  background-color: rgb(43, 46, 49);
+  font-size: 24px;
+  color: white;
+  text-align: center;  
+  vertical-align: bottom;
+  min-height: 500px;
+}
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+
+.topmargin{
+  margin-top: 20px;
+}

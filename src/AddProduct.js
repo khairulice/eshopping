@@ -76,8 +76,8 @@ export default class AddProduct extends Component {
     render() {
         return (
             <div>
-                <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
-                    Add New Product
+                <Button  className="add-product" bsSize="large" onClick={this.handleShow}>
+                    + Upload New Product
                  </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

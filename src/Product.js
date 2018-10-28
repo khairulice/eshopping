@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Jumbotron } from 'react-bootstrap';
 import firebase from 'firebase';
 import _ from 'lodash';
+import { Grid, Row, Col, Table } from 'react-bootstrap'
 import AddProduct from "./AddProduct";
 
 export default class Product extends Component {
@@ -35,19 +36,39 @@ export default class Product extends Component {
 
     render() {
         let list = this.state.products.map(p => {
-            return (<Jumbotron key={p.key}>
-                <h2>
-                    {p.Name}
-                </h2>
-            </Jumbotron>)
+            return (
+                  <tr>                    
+                    <td>{p.Name}</td>
+                    <td>{p.Name}</td>
+                    <td>{p.Price}</td>
+                    <td>{p.Quantity}</td>
+                    <td>{p.Quantity}</td>                    
+                  </tr>                  
+               )
         })
-        return (<div>
-            <div>
-                <AddProduct />
-            </div>
-            <div>
-                {list}
-            </div>
-        </div>)
+        return (
+            
+            <Grid>
+            <Row>
+              <Col xs={12} md={12}>
+               <AddProduct />
+               <Table responsive>
+                <thead>
+                  <tr>                   
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Date</th>
+                    <th>Period</th>
+                    <th>Expired</th>                    
+                  </tr>
+                </thead>
+                <tbody>
+              {list}
+              </tbody>
+              </Table>
+              </Col>              
+            </Row>
+          </Grid>
+          )
     }
 }
