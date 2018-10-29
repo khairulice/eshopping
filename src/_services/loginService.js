@@ -3,8 +3,10 @@ import firebase from "firebase";
 
 export const loginService = {
     login,
-    logout
+    logout,
+    signup
 };
+
 
 function login(username, password) {
 
@@ -30,7 +32,7 @@ function login(username, password) {
                 var uid = user.uid;
                 var providerData = user.providerData;
                 localStorage.setItem('user', JSON.stringify(user));
-                return resolve(user);
+                return resolve({email:user.email});
                 // ...
             } else {
                 // User is signed out.
@@ -44,5 +46,27 @@ function login(username, password) {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
+}
+
+function signup(email, password) {
+
+    var promise1 = new Promise(function (resolve, reject) {
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(user=>{
+        resolve({email:email});
+    })
+    .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(error.message);
+        return reject(error.message);
+    });
+
+});
+       
+    return promise1
 }
 

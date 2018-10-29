@@ -15,7 +15,7 @@ class Authentication extends React.Component {
     }   
 
     render() {
-        const { loggedIn } = this.props;        
+        const { loggedIn, user } = this.props;        
         console.log(loggedIn);
         if (!loggedIn) {
             return (<span>
@@ -24,7 +24,7 @@ class Authentication extends React.Component {
             </span>)
         }
         else {
-            return (<span>
+    return (<span> {user.email}
                 <a href="#" onClick={this.handleLogout}>Logout</a>
             </span>)
         }
@@ -33,9 +33,10 @@ class Authentication extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loggedIn } = state.loginReducer;
+    const { loggedIn,user } = state.loginReducer;
     return {
-        loggedIn
+        loggedIn,
+        user
     };
 }
 

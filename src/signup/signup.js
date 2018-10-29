@@ -30,7 +30,7 @@ export default class Signup extends Component {
         const { email, password } = this.state;
         const { dispatch } = this.props;
         if (email && password) {
-            dispatch(loginActions.Signup(email, password));
+            dispatch(loginActions.signup(email, password));
         }       
 
     }

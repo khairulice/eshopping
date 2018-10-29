@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './app.css';
-import { Router,Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import firebase from "firebase";
 import { loginActions } from '../_actions';
 import { history } from '../_common';
 import { Home } from "../Home";
 import { Login } from '../login';
-import  {Signup}  from '../signup';
+import { Signup } from '../signup';
 import { UserLayout } from "../_common";
 import { Product } from "../Product";
 
@@ -18,10 +18,11 @@ class App extends Component {
     history.listen((location, action) => {
       // clear alert on location change
       //dispatch(loginActions.logout());
-  });  
+    });
 
-    const { dispatch } = this.props;
-    //dispatch(loginActions.logout());
+    const { dispatch, loggedIn } = this.props;
+    if (!loggedIn)
+     // history.push('/login');
 
     var config = {
       apiKey: "AIzaSyApnZVKy-1FuPVrPVOfVd9lsJwKGpby9GQ",
@@ -37,7 +38,7 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-      <div>   
+      <div>
         <Router history={history}>
           <div>
             <UserLayout exact path="/" component={Home} />
@@ -53,8 +54,10 @@ class App extends Component {
 
 function mapStateToProps(state) {
   const { alert } = state;
+  const { loggedIn } = state.loginReducer;
   return {
-    alert
+    alert,
+    loggedIn
   };
 }
 

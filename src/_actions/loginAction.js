@@ -4,14 +4,15 @@ import { history } from '../_common';
 
 export const loginActions = {
     login,
-    logout
+    logout,
+    signup
 };
 
-function login(username, password) {
+function login(email, password) {
     return dispatch => {
-        dispatch(request({ username }));
+        dispatch(request({ email }));
 
-        loginService.login(username, password)
+        loginService.login(email, password)
             .then(
                 user => { 
                     dispatch(success(user));
@@ -31,7 +32,31 @@ function login(username, password) {
 }
 
 function logout() {
-    loginService.logout();
-    console.log('logout called');
+    loginService.logout();    
     return { type: loginConstants.LOGOUT };
+
+}
+
+
+function signup(email, password) {
+    return dispatch => {
+        dispatch(request({ email }));
+
+        loginService.signup(email, password)
+            .then(
+                user => { 
+                    dispatch(success(user));
+                    history.push('/');
+                    console.log('Signup success');
+                },
+                error => {
+                    dispatch(failure(error));
+                    //dispatch(alertActions.error(error));
+                }
+            );
+    };
+
+    function request(user) { return { type: loginConstants.USER_SIGNUP, user } }
+    function success(user) { return { type: loginConstants.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: loginConstants.LOGIN_FAILURE, error } }
 }
