@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import firebase from "firebase";
 import { loginActions } from '../_actions';
 import { history } from '../_common';
-import Home from "../Home";
+import {Home} from "../Home";
 import { Login } from '../login';
 import  {Signup}  from '../signup';
 import { UserLayout } from "../_common";

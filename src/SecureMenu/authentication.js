@@ -1,10 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { loginActions } from '../_actions';
 
 class Authentication extends React.Component {
     constructor(props) {
         super(props);
+
     }
+
+    handleLogout = event => {       
+       
+        const { dispatch } = this.props;
+        dispatch(loginActions.logout());         
+    }   
 
     render() {
         const { loggedIn } = this.props;        
@@ -17,7 +25,7 @@ class Authentication extends React.Component {
         }
         else {
             return (<span>
-                <a href="/logout">Logout</a>
+                <a href="#" onClick={this.handleLogout}>Logout</a>
             </span>)
         }
     }
