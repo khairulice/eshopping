@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import './app.css';
-import { Router, Route } from 'react-router-dom';
+import { Router,Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import firebase from "firebase";
-import {Authentication} from '../SecureMenu';
 import { loginActions } from '../_actions';
 import { history } from '../_common';
 import Home from "../Home";
-import {Login} from '../login';
-
+import { Login } from '../login';
+import  {Signup}  from '../signup';
+import { UserLayout } from "../_common";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
+    history.listen((location, action) => {
+      // clear alert on location change
+      //dispatch(loginActions.logout());
+  });  
+
     const { dispatch } = this.props;
-    dispatch(loginActions.logout());
+    //dispatch(loginActions.logout());
 
     var config = {
       apiKey: "AIzaSyApnZVKy-1FuPVrPVOfVd9lsJwKGpby9GQ",
@@ -32,19 +36,18 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-      <div>
-        <Authentication></Authentication>
+      <div>   
         <Router history={history}>
-        <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-        </div>
-      </Router>
-      </div>      
+          <div>
+            <UserLayout exact path="/" component={Home} />
+            <UserLayout path="/login" component={Login} />
+            <UserLayout path="/signup" component={Signup} />
+          </div>
+        </Router>
+      </div>
     );
   }
 }
-
 
 function mapStateToProps(state) {
   const { alert } = state;

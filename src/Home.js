@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
+import { history } from './_common';
 
 export default class Home extends Component {
     handleSignup=()=>{
-        this.props.history.push('/signup');
+        history.push('/signup');
     }
     handleLogin=()=>{
-        this.props.history.push('/login');
+        history.push('/login');
     }
     render() {
         return (

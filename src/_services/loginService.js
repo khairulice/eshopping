@@ -21,7 +21,7 @@ function login(username, password) {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in.
-                console.log(user.email);
+                console.log("Logged in successful11111");
                 var displayName = user.displayName;
                 var email = user.email;
                 var emailVerified = user.emailVerified;

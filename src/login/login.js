@@ -31,36 +31,7 @@ export default class Login extends Component {
         const { dispatch } = this.props;
         if (email && password) {
             dispatch(loginActions.login(email, password));
-        }
-
-        // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-        //     // Handle Errors here.
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     // ...
-        //     console.log(error.message);
-        //   });
-
-        //   firebase.auth().onAuthStateChanged(function(user) {
-        //     if (user) {
-        //       // User is signed in.
-        //       console.log(user.email);
-        //       var displayName = user.displayName;
-        //       var email = user.email;
-        //       var emailVerified = user.emailVerified;
-        //       var photoURL = user.photoURL;
-        //       var isAnonymous = user.isAnonymous;
-        //       var uid = user.uid;
-        //       var providerData = user.providerData;
-        //       localStorage.setItem("currentUser",user);
-        //       // ...
-        //     } else {
-        //       // User is signed out.
-        //       // ...
-        //     }
-        //   });
-
-
+        }        
     }
 
     render() {

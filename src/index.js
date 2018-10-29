@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './App';
-//import Authentication from './Authentication';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { store } from './_common';
@@ -12,7 +11,6 @@ ReactDOM.render(
     <App />
 </Provider>,
  document.getElementById('root'));
-//ReactDOM.render(<Authentication />, document.getElementById('auth'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

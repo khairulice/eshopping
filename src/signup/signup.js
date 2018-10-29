@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel,Jumbotron } from "react-bootstrap";
-import firebase from "firebase";
+import { connect } from 'react-redux';
+import { loginActions } from '../_actions';
 
 export default class Signup extends Component {
     constructor(props) {
         super(props);
 
+         // reset Signup status
+        this.props.dispatch(loginActions.logout());
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            submitted: false
         };
     }
 
@@ -22,18 +26,20 @@ export default class Signup extends Component {
     }
     handleSubmit = event => {
         event.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-            console.log(error.message);
-          });
+        this.setState({ submitted: true });
+        const { email, password } = this.state;
+        const { dispatch } = this.props;
+        if (email && password) {
+            dispatch(loginActions.Signup(email, password));
+        }       
 
     }
 
     render() {
-        return (<div className="login col-md-offset-3 col-md-6 col-sm-12 topmargin">
+        const { loggingIn } = this.props;
+        const { email, password, submitted } = this.state;
+
+        return (<div className="Signup col-md-offset-3 col-md-6 col-sm-12 topmargin">
             <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="email" bsSize="small">
                     <ControlLabel>
@@ -65,3 +71,13 @@ export default class Signup extends Component {
         </div>);
     }
 }
+
+function mapStateToProps(state) {
+    const { loggingIn } = state.loginReducer;
+    return {
+        loggingIn
+    };
+}
+
+const connectedLoginPage = connect(mapStateToProps)(Signup);
+export { connectedLoginPage as Signup }; 
