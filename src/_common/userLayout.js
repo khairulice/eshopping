@@ -4,6 +4,7 @@ import { Authentication } from "../SecureMenu";
 
 export const UserLayout = ({ component: Component, ...rest }) => (
       <Route {...rest} render={props => (
+        localStorage.getItem('user') ?
            <div>              
               <section className="navbar custom-navbar navbar-fixed-top" role="navigation">
                   <div className="container">
@@ -30,7 +31,7 @@ export const UserLayout = ({ component: Component, ...rest }) => (
 
                       </div>
                    </section>
-                  <section data-stellar-background-ratio="0.5">
+                  <section data-stellar-background-ratio="0.5" className="conent-height">
                       <Component {...props} />
                   </section>
 
@@ -56,6 +57,7 @@ export const UserLayout = ({ component: Component, ...rest }) => (
                           </div>
                       </div>
                   </footer>
-              </div>              
+              </div>     
+              : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />         
       )} />
   )

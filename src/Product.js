@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import _ from 'lodash';
 import { Grid, Row, Col, Table } from 'react-bootstrap'
 import AddProduct from "./AddProduct";
+import { connect } from 'react-redux';
 
 export default class Product extends Component {
     constructor() {
@@ -72,3 +73,15 @@ export default class Product extends Component {
           )
     }
 }
+
+
+function mapStateToProps(state) {
+    const { alert } = state;
+    return {
+      alert
+    };
+  }
+  
+  const connectedProduct = connect(mapStateToProps)(Product);
+  export { connectedProduct as Product }; 
+  

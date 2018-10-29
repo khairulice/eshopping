@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import firebase from "firebase";
 import { loginActions } from '../_actions';
 import { history } from '../_common';
-import {Home} from "../Home";
+import { Home } from "../Home";
 import { Login } from '../login';
 import  {Signup}  from '../signup';
 import { UserLayout } from "../_common";
+import { Product } from "../Product";
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends Component {
         <Router history={history}>
           <div>
             <UserLayout exact path="/" component={Home} />
+            <UserLayout path="/store" component={Product} />
             <UserLayout path="/login" component={Login} />
             <UserLayout path="/signup" component={Signup} />
           </div>

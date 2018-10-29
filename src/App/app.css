@@ -56,3 +56,6 @@
 .topmargin{
   margin-top: 20px;
 }
+.conent-height{
+  min-height: 700px;
+}
