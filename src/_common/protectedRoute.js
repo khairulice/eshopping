@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { Authentication } from "../SecureMenu";
 
-export const UserLayout = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (       
-            <div>
+export const ProtectedRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (     
+        localStorage.getItem('user')  
+            ?<div>
                 <section className="navbar custom-navbar navbar-fixed-top" role="navigation">
                     <div className="container">
                         <div className="navbar-header">
@@ -13,12 +14,12 @@ export const UserLayout = ({ component: Component, ...rest }) => (
                                 <span className="icon icon-bar"></span>
                                 <span className="icon icon-bar"></span>
                             </button>
-                            <a href="/" className="navbar-brand">Warranty Store</a>
+                            <a href="/" className="navbar-brand">Self Service 7/24</a>
                         </div>
                         <div className="collapse navbar-collapse">
                             <ul className="nav navbar-nav">
                                 <li><a href="/" className="smoothScroll">Home</a></li>
-                                <li><a href="/store" className="smoothScroll">Store</a></li>
+                                <li><a href="/store" className="smoothScroll">Services</a></li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                                 <li><Authentication></Authentication></li>
@@ -35,7 +36,7 @@ export const UserLayout = ({ component: Component, ...rest }) => (
                             <div className="copyright-text col-md-12 col-sm-12">
                                 <div className="col-md-6 col-sm-6">
                                     <p>Copyright &copy; 2018 Company Name:
-                                    <a rel="nofollow" href="/">Warranty Store</a></p>
+                                    <a rel="nofollow" href="/">Self Service 7/24</a></p>
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <ul className="social-icon">
@@ -48,6 +49,7 @@ export const UserLayout = ({ component: Component, ...rest }) => (
                         </div>
                     </div>
                 </footer>
-            </div>            
+            </div>
+            : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />            
     )} />
 )

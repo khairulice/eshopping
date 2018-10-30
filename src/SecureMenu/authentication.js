@@ -24,7 +24,7 @@ class Authentication extends React.Component {
             </span>)
         }
         else {
-    return (<span> {user.email}
+    return (<span> <span className="welcome"> Welcome {user.email}!</span>
                 <a href="#" onClick={this.handleLogout}>Logout</a>
             </span>)
         }

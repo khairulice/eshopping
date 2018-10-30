@@ -7,8 +7,8 @@ import AddProduct from "./AddProduct";
 import { connect } from 'react-redux';
 
 export default class Product extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             products: []
         }
@@ -40,10 +40,8 @@ export default class Product extends Component {
             return (
                   <tr>                    
                     <td>{p.Name}</td>
-                    <td>{p.Name}</td>
-                    <td>{p.Price}</td>
-                    <td>{p.Quantity}</td>
-                    <td>{p.Quantity}</td>                    
+                    <td>{p.Type}</td>
+                    <td>{p.Status}</td>                                   
                   </tr>                  
                )
         })
@@ -57,10 +55,8 @@ export default class Product extends Component {
                 <thead>
                   <tr>                   
                     <th>Name</th>
-                    <th>Brand</th>
-                    <th>Date</th>
-                    <th>Period</th>
-                    <th>Expired</th>                    
+                    <th>Type</th>
+                    <th>Status</th>                                    
                   </tr>
                 </thead>
                 <tbody>

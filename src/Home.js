@@ -1,40 +1,91 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { history } from './_common';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
+import _ from 'lodash';
 
 export default class Home extends Component {
-    handleSignup=()=>{
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: []
+        }
+    }
+    handleSignup = () => {
         history.push('/signup');
     }
-    handleLogin=()=>{
+    handleLogin = () => {
         history.push('/login');
     }
+
+    componentDidMount() {
+        var pRef = firebase.database().ref('Product');
+        pRef.on('value', snapshot => {
+            this.getData(snapshot.val());
+        })
+    }
+
+    getData(values) {
+        let messagesVal = values;
+        let messages = _(messagesVal)
+            .keys()
+            .map(messageKey => {
+                let cloned = _.clone(messagesVal[messageKey]);
+                cloned.key = messageKey;
+                return cloned;
+            })
+            .value();
+        this.setState({
+            products: messages
+        });
+    }
+
     render() {
-        const { loggedIn } = this.props;  
-        return ( 
-            <section id="home" data-stellar-background-ratio="0.5">
-                <div className="overlay"></div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-offset-3 col-md-6 col-sm-12">
-                            <div className="home-info">    
-                            {!loggedIn?      
-                            <div>                     
-                                <h1>We help you manage your Warranty Cards successfully!</h1>
-                                <form action="" method="get" className="online-form">
-                                    {/* <input type="email" name="email" className="form-control" placeholder="Enter your email" required="" /> */}
-                                    <button type="submit" className="form-control" onClick={this.handleSignup}>Signup</button>
-                                    <button type="submit" className="form-control" onClick={this.handleLogin}>Login</button>
-                                </form>
+        const { loggedIn } = this.props;
+        let list = this.state.products.map(p => {
+            return (
+                <div>
+                    <ListGroupItem bsStyle="info text-center" href="#">{p.Name}</ListGroupItem>
+                </div>
+            )
+        })
+
+        return (
+            !loggedIn ?
+                <section id="home" data-stellar-background-ratio="0.5">
+                    <div className="overlay"></div>
+                    <div className="container">
+                        <div className="row">
+
+                            <div className="col-md-offset-3 col-md-6 col-sm-12">
+                                <div className="home-info">
+                                    <div>
+                                        <h1>How can you help you</h1>
+                                        <form action="" method="get" className="online-form">
+                                            {/* <input type="email" name="email" className="form-control" placeholder="Enter your email" required="" /> */}
+                                            <button type="submit" className="form-control" onClick={this.handleSignup}>Signup</button>
+                                            <button type="submit" className="form-control" onClick={this.handleLogin}>Login</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                : <h1>Welcome!</h1>
-                            }
                             </div>
+
+
                         </div>
                     </div>
+                </section>
+                : <div> <div className="overlay"></div>
+                    <div className="container">
+                        <div className="row">
+
+                            <ListGroup>
+                                {list}
+                            </ListGroup>;
+                    </div>
+                    </div>
                 </div>
-            </section>
+
         )
     }
 }

@@ -8,7 +8,7 @@ import { history } from '../_common';
 import { Home } from "../Home";
 import { Login } from '../login';
 import { Signup } from '../signup';
-import { UserLayout } from "../_common";
+import { PublicRoute,ProtectedRoute } from "../_common";
 import { Product } from "../Product";
 
 class App extends Component {
@@ -18,11 +18,7 @@ class App extends Component {
     history.listen((location, action) => {
       // clear alert on location change
       //dispatch(loginActions.logout());
-    });
-
-    const { dispatch, loggedIn } = this.props;
-    if (!loggedIn)
-     // history.push('/login');
+    });    
 
     var config = {
       apiKey: "AIzaSyApnZVKy-1FuPVrPVOfVd9lsJwKGpby9GQ",
@@ -41,10 +37,10 @@ class App extends Component {
       <div>
         <Router history={history}>
           <div>
-            <UserLayout exact path="/" component={Home} />
-            <UserLayout path="/store" component={Product} />
-            <UserLayout path="/login" component={Login} />
-            <UserLayout path="/signup" component={Signup} />
+            <PublicRoute exact path="/" component={Home} />            
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/signup" component={Signup} />
+            <ProtectedRoute path="/store" component={Product} />
           </div>
         </Router>
       </div>

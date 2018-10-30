@@ -13,9 +13,7 @@ export default class AddProduct extends Component {
 
         this.state = {
             product:{
-                Name: '',
-                Price: 0,
-                Quantity: 0
+                Name: ''               
             },
             value: '',                               
             show: false
@@ -49,16 +47,12 @@ export default class AddProduct extends Component {
         let fb = firebase.database().ref('Product');
         console.log(this.state.product);
         fb.push({
-            Name: this.state.product.Name,
-            Price: this.state.product.Price,
-            Quantity: this.state.product.Quantity
+            Name: this.state.product.Name,           
         });
 
         this.setState({
             product:{
-            Name: '',
-            Price: 0,
-            Quantity: 0,
+            Name: '',            
             show: false
         }});
     }
@@ -77,14 +71,13 @@ export default class AddProduct extends Component {
         return (
             <div>
                 <Button  className="add-product" bsSize="large" onClick={this.handleShow}>
-                    + Upload New Product
+                    + Add Service
                  </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add New Product</Modal.Title>
+                        <Modal.Title>Add New Service</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-
                         <form>
                             <FormGroup
                                 controlId="NameFG"
@@ -99,32 +92,7 @@ export default class AddProduct extends Component {
                                 />
                                 <FormControl.Feedback />
                                 <HelpBlock>Name must be 5 digits</HelpBlock>
-                            </FormGroup>
-                            <FormGroup
-                                controlId="PriceFG"
-                            >
-                                <ControlLabel>Price</ControlLabel>
-                                <FormControl
-                                    type="number"
-                                    name="Price"
-                                    value={this.state.product.Price}
-                                    placeholder="Enter price"
-                                    onChange={this.handleChange}
-                                />
-
-                            </FormGroup>
-                            <FormGroup
-                                controlId="QuantityFG"
-                            >
-                                <ControlLabel>Quantity</ControlLabel>
-                                <FormControl
-                                    type="number"
-                                    name="Quantity"
-                                    value={this.state.product.Quantity}
-                                    placeholder="Enter quantity"
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
+                            </FormGroup>                            
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
