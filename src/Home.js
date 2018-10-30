@@ -78,7 +78,7 @@ export default class Home extends Component {
         
         let reply = this.state.actions.map(a => {
             return (
-                <div> Serving {a.service} in 5 mins</div>
+                <div className="info"> Serving {a.service} in 5 mins</div>
             )
         });     
 
@@ -108,13 +108,13 @@ export default class Home extends Component {
                         <div className="row">
                             <div className="col-md-offset-3 col-md-6 col-sm-12">
                                 <Panel>
-                                    <Panel.Heading>Request Services</Panel.Heading>
+                                    <Panel.Heading>Services</Panel.Heading>
                                     <Panel.Body>
+                                     {reply}
                                         <ListGroup>
                                             {list}
                                         </ListGroup>
-                                    </Panel.Body>
-                                    <Panel.Footer> {reply}</Panel.Footer>
+                                    </Panel.Body>                                    
                                 </Panel>                               
                             </div>
                         </div>

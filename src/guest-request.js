@@ -52,7 +52,7 @@ export default class GuestRequest extends Component {
             <div className="row">
                 <div className="col-md-offset-3 col-md-6 col-sm-12">
                     <Panel>
-                        <Panel.Heading>Guest Requests</Panel.Heading>
+                        <Panel.Heading>Requests in Queue</Panel.Heading>
                         <Panel.Body>
                             <ListGroup>
                                 {list}
