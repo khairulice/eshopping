@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Panel } from 'react-bootstrap'
 import { history } from './_common';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
@@ -9,7 +9,8 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: []
+            products: [],
+            actions: []
         }
     }
     handleSignup = () => {
@@ -22,11 +23,30 @@ export default class Home extends Component {
     componentDidMount() {
         var pRef = firebase.database().ref('Product');
         pRef.on('value', snapshot => {
-            this.getData(snapshot.val());
+            this.processServices(snapshot.val());
+        })
+
+        var pRef = firebase.database().ref('GuestRequestAction');
+        pRef.on('value', snapshot => {
+            this.processRequestActions(snapshot.val());
         })
     }
 
-    getData(values) {
+    processRequestActions(values) {
+        let messagesVal = values;
+        let messages = _(messagesVal)
+            .keys()
+            .map(messageKey => {
+                let cloned = _.clone(messagesVal[messageKey]);
+                cloned.key = messageKey;
+                return cloned;
+            })
+            .value();
+        this.setState({
+            actions: messages
+        });
+    }
+    processServices(values) {
         let messagesVal = values;
         let messages = _(messagesVal)
             .keys()
@@ -40,16 +60,27 @@ export default class Home extends Component {
             products: messages
         });
     }
+    handleGuestRequest = (e) => {
+        let fb = firebase.database().ref('GuestRequest');       
+        fb.push({
+            service: e.target.text
+        });
+    }
 
     render() {
         const { loggedIn } = this.props;
+
         let list = this.state.products.map(p => {
             return (
-                <div>
-                    <ListGroupItem bsStyle="info text-center" href="#">{p.Name}</ListGroupItem>
-                </div>
+                <ListGroupItem bsStyle="info" key={p.name} href="#" onClick={this.handleGuestRequest}>{p.Name}</ListGroupItem>
             )
-        })
+        });   
+        
+        let reply = this.state.actions.map(a => {
+            return (
+                <div> Serving {a.service} in 5 mins</div>
+            )
+        });     
 
         return (
             !loggedIn ?
@@ -57,7 +88,6 @@ export default class Home extends Component {
                     <div className="overlay"></div>
                     <div className="container">
                         <div className="row">
-
                             <div className="col-md-offset-3 col-md-6 col-sm-12">
                                 <div className="home-info">
                                     <div>
@@ -70,19 +100,24 @@ export default class Home extends Component {
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </section>
                 : <div> <div className="overlay"></div>
                     <div className="container">
                         <div className="row">
-
-                            <ListGroup>
-                                {list}
-                            </ListGroup>;
-                    </div>
+                            <div className="col-md-offset-3 col-md-6 col-sm-12">
+                                <Panel>
+                                    <Panel.Heading>Request Services</Panel.Heading>
+                                    <Panel.Body>
+                                        <ListGroup>
+                                            {list}
+                                        </ListGroup>
+                                    </Panel.Body>
+                                    <Panel.Footer> {reply}</Panel.Footer>
+                                </Panel>                               
+                            </div>
+                        </div>
                     </div>
                 </div>
 

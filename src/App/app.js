@@ -10,6 +10,7 @@ import { Login } from '../login';
 import { Signup } from '../signup';
 import { PublicRoute,ProtectedRoute } from "../_common";
 import { Product } from "../Product";
+import GuestRequest from "../guest-request";
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class App extends Component {
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/signup" component={Signup} />
             <ProtectedRoute path="/store" component={Product} />
+            <ProtectedRoute path="/request" component={GuestRequest} />            
           </div>
         </Router>
       </div>
