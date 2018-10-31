@@ -53,7 +53,7 @@ export default class GuestRequest extends Component {
             return (
                
                 <ListGroupItem bsStyle="info" href="#">Room-708 is calling {req.service} 
-                <Button bsClass="success" data-id={req.service} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>
+                <Button bsClass="success" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>
                 <Button bsClass="info" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>Complete</Button>
                 </ListGroupItem>
             )
