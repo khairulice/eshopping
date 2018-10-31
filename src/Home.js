@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Panel } from 'react-bootstrap'
+import { Button, ListGroup, ListGroupItem, Panel } from 'react-bootstrap'
 import { history } from './_common';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
@@ -61,26 +61,31 @@ export default class Home extends Component {
         });
     }
     handleGuestRequest = (e) => {
-        let fb = firebase.database().ref('GuestRequest');       
+        const { user } = this.props;
+        let fb = firebase.database().ref('GuestRequest');
         fb.push({
-            service: e.target.text
+            service: e.currentTarget.dataset.id,
+            gid: user.email
         });
     }
 
     render() {
         const { loggedIn } = this.props;
-
+        const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
         let list = this.state.products.map(p => {
             return (
-                <ListGroupItem bsStyle="info" key={p.name} href="#" onClick={this.handleGuestRequest}>{p.Name}</ListGroupItem>
+                <Button bsStyle="primary" bsSize="large" key={p.key} data-id={p.Name} block onClick={this.handleGuestRequest.bind(this)}>
+                    {p.Name}
+                </Button>
+                // <div className="service" key={p.key} href="#" onClick={this.handleGuestRequest}>{p.Name}</div>
             )
-        });   
-        
+        });
+
         let reply = this.state.actions.map(a => {
             return (
-                <div className="info"> Serving {a.service} soon</div>
+                <div className="info"> {a.action}</div>
             )
-        });     
+        });
 
         return (
             !loggedIn ?
@@ -103,19 +108,14 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </section>
-                : <div> <div className="overlay"></div>
+                : <div>
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-offset-3 col-md-6 col-sm-12">
-                                <Panel>
-                                    <Panel.Heading>Services</Panel.Heading>
-                                    <Panel.Body>
-                                     {reply}
-                                        <ListGroup>
-                                            {list}
-                                        </ListGroup>
-                                    </Panel.Body>                                    
-                                </Panel>                               
+                            <div className="col-md-offset-3 col-md-6 col-sm-12">                                                           
+                                <div className="well" style={wellStyles}>   
+                                <div className="info">  {reply}</div>                             
+                                    {list}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,9 +128,10 @@ export default class Home extends Component {
 
 
 function mapStateToProps(state) {
-    const { loggedIn } = state.loginReducer;
+    const { loggedIn, user } = state.loginReducer;
     return {
-        loggedIn
+        loggedIn,
+        user
     };
 }
 

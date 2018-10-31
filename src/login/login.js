@@ -38,8 +38,11 @@ export default class Login extends Component {
         const { loggingIn } = this.props;
         const { email, password, submitted } = this.state;
 
-        return (<div className="login col-md-offset-3 col-md-6 col-sm-12 topmargin">
-            <form onSubmit={this.handleSubmit}>
+        return (        
+            <div className="container topmargin">
+            <div className="row">
+                <div className="col-md-offset-4 col-md-3 col-sm-12">                                                           
+                <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="email" bsSize="small">
                     <ControlLabel>
                         Email
@@ -61,13 +64,16 @@ export default class Login extends Component {
                 <Button
                     block
                     bsSize="large"
+                    bsStyle="primary"
                     disabled={!this.validateForm()}
-                    type="submit"
-                >
+                    type="submit">
                     Login
           </Button>
             </form>
-        </div>);
+                </div>
+            </div>
+        </div>
+       );
     }
 }
 

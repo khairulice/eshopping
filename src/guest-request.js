@@ -35,24 +35,34 @@ export default class GuestRequest extends Component {
     }
 
     handleGuestRequestServe = (e) => {
-        let fb = firebase.database().ref('GuestRequestAction');                
-        fb.push({
-            service: e.currentTarget.dataset.id                      
-        });
+        let fb = firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added", 
+        function(snapshot) {            
+            let ga = firebase.database().ref('GuestRequestAction'); 
+            ga.push({
+                action: `Serving ${snapshot.val().service} soon.`,
+                rqid:  snapshot.key                 
+            });
+        }); 
+
+        
     }
-    handleGuestRequestComplete = (e) => {
-        let fb = firebase.database().ref('GuestRequest/'+e.currentTarget.key);               
+    handleGuestRequestComplete = (e) => {        
+        let ga = firebase.database().ref('GuestRequestAction').orderByChild('rqid').equalTo(e.currentTarget.dataset.id).on("child_added", 
+        function(snapshot) { 
+            firebase.database().ref('GuestRequestAction/'+snapshot.key).remove();
+        });
+
+        let fb = firebase.database().ref('GuestRequest/'+e.currentTarget.dataset.id);               
         fb.remove();
 
-        let ga = firebase.database().ref('GuestRequestAction/'+e.currentTarget.key);               
-        ga.remove();
+       
     }
 
     render() {
         let list = this.state.requests.map(req => {            
             return (
                
-                <ListGroupItem bsStyle="info" href="#">Room-708 is calling {req.service} 
+                <ListGroupItem bsStyle="info" key={req.key} href="#">Room-708 is calling {req.service} 
                 <Button bsClass="success" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>
                 <Button bsClass="info" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>Complete</Button>
                 </ListGroupItem>

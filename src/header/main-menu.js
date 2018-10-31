@@ -31,7 +31,8 @@ class MainMenu extends React.Component {
                     <ul className="nav navbar-nav">
                         <li><a href="/" className="smoothScroll">Home</a></li>
                         <li><a href="/store" className="smoothScroll">Services</a></li>
-                        <li><a href="/request" className="smoothScroll">Request</a></li>
+                        <li><a href="/guest" className="smoothScroll">Guest</a></li>
+                        <li><a href="/request" className="smoothScroll">Request</a></li>                        
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
                         <li>
@@ -40,7 +41,10 @@ class MainMenu extends React.Component {
                                     <a href="/login">Login</a>
                                     <a href="/signup">Signup</a>
                                 </span>
-                                : <a href="#" onClick={this.handleLogout}>Logout</a>
+                                : <span>
+                                    <span className="welcome">{user.email}</span>
+                                    <a href="#" onClick={this.handleLogout}>Logout</a>
+                                </span>
                             }
                         </li>
                     </ul>

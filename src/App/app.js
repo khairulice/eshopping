@@ -11,6 +11,7 @@ import { Signup } from '../signup';
 import { PublicRoute,ProtectedRoute } from "../_common";
 import { Product } from "../Product";
 import GuestRequest from "../guest-request";
+import Guest from '../Guest'
 
 class App extends Component {
   constructor(props) {
@@ -38,11 +39,12 @@ class App extends Component {
       <div>
         <Router history={history}>
           <div>
-            <PublicRoute exact path="/" component={Home} />            
+            <ProtectedRoute exact path="/" component={Home} />            
             <PublicRoute path="/login" component={Login} />
-            <PublicRoute path="/signup" component={Signup} />
+            {/* <PublicRoute path="/signup" component={Signup} /> */}
             <ProtectedRoute path="/store" component={Product} />
             <ProtectedRoute path="/request" component={GuestRequest} />            
+            <ProtectedRoute path="/guest" component={Guest} />
           </div>
         </Router>
       </div>
