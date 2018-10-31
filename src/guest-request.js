@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import _ from 'lodash';
-import { ListGroup, ListGroupItem, Panel } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Panel,Button } from 'react-bootstrap'
 import AddProduct from "./AddProduct";
 import { connect } from 'react-redux';
 
@@ -33,18 +33,29 @@ export default class GuestRequest extends Component {
             requests: messages
         });
     }
-    handleGuestRequestAction = (e) => {
-        let fb = firebase.database().ref('GuestRequestAction');        
+
+    handleGuestRequestServe = (e) => {
+        let fb = firebase.database().ref('GuestRequestAction');                
         fb.push({
-            service: e.currentTarget.dataset.id
+            service: e.currentTarget.dataset.id                      
         });
+    }
+    handleGuestRequestComplete = (e) => {
+        let fb = firebase.database().ref('GuestRequest/'+e.currentTarget.key);               
+        fb.remove();
+
+        let ga = firebase.database().ref('GuestRequestAction/'+e.currentTarget.key);               
+        ga.remove();
     }
 
     render() {
-        let list = this.state.requests.map(req => {
+        let list = this.state.requests.map(req => {            
             return (
-
-                <ListGroupItem bsStyle="info" data-id={req.service} onClick={this.handleGuestRequestAction.bind(this)} href="#">Room-708 is calling {req.service}</ListGroupItem>
+               
+                <ListGroupItem bsStyle="info" href="#">Room-708 is calling {req.service} 
+                <Button bsClass="success" data-id={req.service} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>
+                <Button bsClass="info" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>Complete</Button>
+                </ListGroupItem>
             )
         })
         return (<div> <div className="overlay"></div>

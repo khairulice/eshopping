@@ -78,7 +78,7 @@ export default class Home extends Component {
         
         let reply = this.state.actions.map(a => {
             return (
-                <div className="info"> Serving {a.service} in 5 mins</div>
+                <div className="info"> Serving {a.service} soon</div>
             )
         });     
 
