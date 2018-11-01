@@ -56,6 +56,10 @@
 .topmargin{
   margin-top: 20px;
 }
+
+.margin2px{
+  margin: 2px;
+}
 .conent-height{
   min-height: 700px;
 }
@@ -100,7 +104,8 @@ font-weight: bold;
   color:rgb(12, 2, 2);  
 }
 .time{
-  font-size: 9px;
+  font-size: 10px;
   color: black;
+  font-weight: normal;
   font-style: italic;
 }

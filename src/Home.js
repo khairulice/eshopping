@@ -4,7 +4,10 @@ import { history } from './_common';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import _ from 'lodash';
-import { O_NOFOLLOW } from 'constants';
+import TimeAgo from 'javascript-time-ago'
+ 
+// Load locale-specific relative date/time formatting rules.
+import en from 'javascript-time-ago/locale/en'
 
 export default class Home extends Component {
     constructor(props) {
@@ -89,10 +92,17 @@ export default class Home extends Component {
             )
         });
 
+        // Add locale-specific relative date/time formatting rules.
+        TimeAgo.locale(en)
+ 
+        // Create relative date/time formatter.
+        const timeAgo = new TimeAgo('en-US')
+
         let actions = this.state.actions.map(a => {
             return (
-                <li key={a.key} data-id={a.Name} className="list-group-item">
-                   {a.action}
+                <li key={a.key} data-id={a.Name} className="list-group-item">                  
+                   <div> {a.action} </div> 
+                   <div className="time">{timeAgo.format(new Date(a.dt_created))}</div>                       
                 </li>               
             )
         });
@@ -122,7 +132,7 @@ export default class Home extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 col-sm-12">
-                                <div className="title1"> Quick Services</div>
+                                <div className="title1"> Quick Service</div>
                                 <ul className="list-group service">
                                     {list}
                                     <li className="list-group-item active">
@@ -131,7 +141,7 @@ export default class Home extends Component {
                                 </ul>
                             </div>
                             <div className="col-md-6 col-sm-12">
-                                <div className="title1">Messages</div>
+                                <div className="title1">Message</div>
                                 <ul className="list-group">
                                     {actions}
                                 </ul>

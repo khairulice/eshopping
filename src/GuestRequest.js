@@ -51,13 +51,16 @@ export default class GuestRequest extends Component {
             function (snapshot) {
 
                 firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
-                    .set({ status: "Serving", service:snapshot.val().service });
+                    .set({ status: "Serving", service:snapshot.val().service,dt_created:snapshot.val().dt_created });
                     alertActions.success('Served');
+
+                    let dt=new Date();
 
                 let ga = firebase.database().ref('GuestRequestAction');
                 ga.push({
                     action: `Serving ${snapshot.val().service} soon.`,
-                    rqid: snapshot.key
+                    rqid: snapshot.key,
+                    dt_created: dt.toString() 
                 });
             });
 
@@ -77,7 +80,7 @@ export default class GuestRequest extends Component {
             function (snapshot) {
 
                 firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
-                    .set({ status: "Completed", service:snapshot.val().service });    
+                    .set({ status: "Completed", service:snapshot.val().service,dt_created:snapshot.val().dt_created });    
                     
                     alertActions.success('Completed');
             });
@@ -96,16 +99,16 @@ export default class GuestRequest extends Component {
             return (
                 <li key={req.key} className= {req.status=="Serving"?"list-group-item serving": req.status =="Completed"?"list-group-item completed":"list-group-item"}>
                     <div className="row">
-                        <div className="col-md-7">
+                        <div className="col-md-6">
                        <div> Requesting {req.service} at Room-708 </div> 
                        <div className="time">{timeAgo.format(new Date(req.dt_created))}</div>
                         </div>
                         <div className="col-md-2">
                             {req.status}
                         </div>
-                        <div className="col-md-3">
-                            <Button bsStyle="info" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>
-                            <Button bsStyle="success" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>Complete</Button>
+                        <div className="col-md-4">
+                            <Button bsStyle="success margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>Complete</Button>
+                            <Button bsStyle="info margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>                            
                         </div>
                     </div>
                 </li>
