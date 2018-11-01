@@ -10,7 +10,7 @@ import { Login } from '../login';
 import { Signup } from '../signup';
 import { PublicRoute,ProtectedRoute } from "../_common";
 import { Product } from "../Product";
-import GuestRequest from "../guest-request";
+import GuestRequest from "../GuestRequest";
 import Guest from '../Guest'
 
 class App extends Component {
@@ -36,9 +36,12 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-      <div>
+      <div>        
+        {alert.message &&
+                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                        }
         <Router history={history}>
-          <div>
+          <div>  
             <ProtectedRoute exact path="/" component={Home} />            
             <PublicRoute path="/login" component={Login} />
             {/* <PublicRoute path="/signup" component={Signup} /> */}
@@ -46,7 +49,8 @@ class App extends Component {
             <ProtectedRoute path="/request" component={GuestRequest} />            
             <ProtectedRoute path="/guest" component={Guest} />
           </div>
-        </Router>
+        </Router>      
+
       </div>
     );
   }

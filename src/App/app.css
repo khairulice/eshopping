@@ -71,3 +71,30 @@ font-weight: bold;
   margin: 10px;
   font-size: 16px;
 }
+.action-holder{
+  float: right;
+}
+.title1{
+  font-size: 20px;
+  font-weight: bolder;
+  color: white;
+  margin: 20px 0;
+}
+.clearfx{
+  clear: both;
+}
+.serving{
+  background-color: cornflowerblue;
+}
+.list-group-item{
+  background-color:cornsilk;
+  margin-top: 5px;
+  font-weight: bold;
+  color:red;
+}
+.completed{
+  background-color:green;
+  margin-top: 5px;
+  font-weight: bold;
+  color:white;
+}

@@ -65,25 +65,31 @@ export default class Home extends Component {
         let fb = firebase.database().ref('GuestRequest');
         fb.push({
             service: e.currentTarget.dataset.id,
+            status: 'Open',
             gid: user.email
         });
     }
 
     render() {
         const { loggedIn } = this.props;
-        const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
         let list = this.state.products.map(p => {
             return (
-                <Button bsStyle="primary" bsSize="large" key={p.key} data-id={p.Name} block onClick={this.handleGuestRequest.bind(this)}>
+                <li key={p.key} data-id={p.Name} onClick={this.handleGuestRequest.bind(this)} className="list-group-item active">
                     {p.Name}
-                </Button>
+                </li>
+
+                // <Button bsStyle="primary" bsSize="large" key={p.key} data-id={p.Name} block onClick={this.handleGuestRequest.bind(this)}>
+                //     {p.Name}
+                // </Button>
                 // <div className="service" key={p.key} href="#" onClick={this.handleGuestRequest}>{p.Name}</div>
             )
         });
 
-        let reply = this.state.actions.map(a => {
+        let actions = this.state.actions.map(a => {
             return (
-                <div className="info"> {a.action}</div>
+                <li key={a.key} data-id={a.Name} className="list-group-item">
+                   {a.action}
+                </li>               
             )
         });
 
@@ -108,19 +114,27 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </section>
-                : <div>
+                : <div> <div className="overlay"></div>
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-offset-3 col-md-6 col-sm-12">                                                           
-                                <div className="well" style={wellStyles}>   
-                                <div className="info">  {reply}</div>                             
+                            <div className="col-md-6 col-sm-12">
+                                <div className="title1"> Quick Services</div>
+                                <ul className="list-group">
                                     {list}
-                                </div>
+                                    <li className="list-group-item active">
+                                        Other
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col-md-6 col-sm-12">
+                                <div className="title1">Messages</div>
+                                <ul className="list-group">
+                                    {actions}
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-
         )
     }
 }
