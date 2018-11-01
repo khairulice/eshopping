@@ -79,8 +79,7 @@ export default class GuestRequest extends Component {
 
     }
 
-    render() {
-        const { alert } = this.props;
+    render() {        
         let list = this.state.requests.map(req => {           
             return (
                 <li key={req.key} className= {req.status=="Serving"?"list-group-item active": req.status =="Completed"?"list-group-item completed":"list-group-item"}>
@@ -117,9 +116,9 @@ export default class GuestRequest extends Component {
 
 
 function mapStateToProps(state) {
-    const { alert } = state;
+    const { loggingIn } = state.authentication;
     return {
-        alert
+        loggingIn
     };
 }
 
