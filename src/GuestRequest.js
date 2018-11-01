@@ -5,11 +5,15 @@ import { ListGroup, ListGroupItem, Panel, Button, Table } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import {alertActions} from './_actions'
 import {history} from './_common'
+import TimeAgo from 'javascript-time-ago'
+ 
+// Load locale-specific relative date/time formatting rules.
+import en from 'javascript-time-ago/locale/en'
 
 export default class GuestRequest extends Component {
     constructor(props) {
-        super(props);
-        
+        super(props);        
+
         const { dispatch } = this.props;
         history.listen((location, action) => {
             // clear alert on location change
@@ -68,6 +72,7 @@ export default class GuestRequest extends Component {
         // let fb = firebase.database().ref('GuestRequest/' + e.currentTarget.dataset.id);
         // fb.remove();
 
+        
         let fb = firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
             function (snapshot) {
 
@@ -79,13 +84,21 @@ export default class GuestRequest extends Component {
 
     }
 
-    render() {        
+    render() {     
+        
+        // Add locale-specific relative date/time formatting rules.
+        TimeAgo.locale(en)
+ 
+        // Create relative date/time formatter.
+        const timeAgo = new TimeAgo('en-US')
+
         let list = this.state.requests.map(req => {           
             return (
-                <li key={req.key} className= {req.status=="Serving"?"list-group-item active": req.status =="Completed"?"list-group-item completed":"list-group-item"}>
+                <li key={req.key} className= {req.status=="Serving"?"list-group-item serving": req.status =="Completed"?"list-group-item completed":"list-group-item"}>
                     <div className="row">
                         <div className="col-md-7">
-                        Requesting {req.service} at Room-708
+                       <div> Requesting {req.service} at Room-708 </div> 
+                       <div className="time">{timeAgo.format(new Date(req.dt_created))}</div>
                         </div>
                         <div className="col-md-2">
                             {req.status}

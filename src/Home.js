@@ -4,6 +4,7 @@ import { history } from './_common';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import _ from 'lodash';
+import { O_NOFOLLOW } from 'constants';
 
 export default class Home extends Component {
     constructor(props) {
@@ -62,12 +63,15 @@ export default class Home extends Component {
     }
     handleGuestRequest = (e) => {
         const { user } = this.props;
+        let dt=new Date();
         let fb = firebase.database().ref('GuestRequest');
         fb.push({
             service: e.currentTarget.dataset.id,
             status: 'Open',
-            gid: user.email
+            gid: user.email,
+            dt_created: dt.toString() 
         });
+        console.log(new Date());
     }
 
     render() {
@@ -119,7 +123,7 @@ export default class Home extends Component {
                         <div className="row">
                             <div className="col-md-6 col-sm-12">
                                 <div className="title1"> Quick Services</div>
-                                <ul className="list-group">
+                                <ul className="list-group service">
                                     {list}
                                     <li className="list-group-item active">
                                         Other

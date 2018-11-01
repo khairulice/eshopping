@@ -66,35 +66,41 @@ font-weight: bold;
 .text-center{
   text-align: center;
 }
-
+.clearfx{
+  clear: both;
+}
 .service{  
   margin: 10px;
-  font-size: 16px;
+  font-size: 24px;
 }
 .action-holder{
   float: right;
 }
 .title1{
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bolder;
   color: white;
   margin: 20px 0;
 }
-.clearfx{
-  clear: both;
-}
-.serving{
-  background-color: cornflowerblue;
-}
 .list-group-item{
-  background-color:cornsilk;
+  background-color:rgb(253, 224, 108);
   margin-top: 5px;
   font-weight: bold;
   color:red;
 }
+.serving{
+  background-color: rgb(74, 119, 144);
+  color: white;
+  font-size:large;
+}
 .completed{
-  background-color:green;
+  background-color:rgb(77, 117, 77);
   margin-top: 5px;
-  font-weight: bold;
-  color:white;
+  font-weight: normal;
+  color:rgb(12, 2, 2);  
+}
+.time{
+  font-size: 9px;
+  color: black;
+  font-style: italic;
 }
