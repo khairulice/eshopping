@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import firebase from "firebase";
-import { Modal, Button, Popover, Tooltip, OverlayTrigger, FormGroup, ControlLabel, FormControl, HelpBlock } from "react-bootstrap";
+import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from "react-bootstrap";
 
-export default class AddProduct extends Component {
+export default class AddService extends Component {
     constructor(props, context) {
         super(props, context);
 
@@ -12,7 +12,7 @@ export default class AddProduct extends Component {
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            product:{
+            service:{
                 Name: ''               
             },
             value: '',                               
@@ -34,8 +34,8 @@ export default class AddProduct extends Component {
         let value = event.target.value;    
         
         this.setState(prevState => ({
-            product: {
-                ...prevState.product,
+            service: {
+                ...prevState.service,
                 [name]:value
             }
         }))
@@ -44,14 +44,14 @@ export default class AddProduct extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        let fb = firebase.database().ref('Product');
-        console.log(this.state.product);
+        let fb = firebase.database().ref('Service');
+        console.log(this.state.service);
         fb.push({
-            Name: this.state.product.Name,           
+            Name: this.state.service.Name,           
         });
 
         this.setState({
-            product:{
+            service:{
             Name: '',            
             show: false
         }});
@@ -86,7 +86,7 @@ export default class AddProduct extends Component {
                                 <FormControl
                                     type="text"
                                     name="Name"
-                                    value={this.state.product.Name}
+                                    value={this.state.service.Name}
                                     placeholder="Enter name"
                                     onChange={this.handleChange}
                                 />

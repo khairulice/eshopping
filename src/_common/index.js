@@ -1,5 +1,5 @@
 export * from './AuthHeader';
-export * from './history';
-export * from './store';
+export * from './History';
+export * from './Store';
 export * from './ProtectedRoute';
 export * from './PublicRoute';

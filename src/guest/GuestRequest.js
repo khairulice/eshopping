@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import _ from 'lodash';
-import { ListGroup, ListGroupItem, Panel, Button, Table, Glyphicon } from 'react-bootstrap'
+import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {alertActions} from './_actions'
-import {history} from './_common'
+import {alertActions} from '../_actions'
+import {history} from '../_common'
 import TimeAgo from 'javascript-time-ago'
  
 // Load locale-specific relative date/time formatting rules.
@@ -47,9 +47,8 @@ export default class GuestRequest extends Component {
     }
 
     handleGuestRequestServe = (e) => {
-        let fb = firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
+        firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
             function (snapshot) {
-
                 firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
                     .set({ status: "Serving", service:snapshot.val().service,dt_created:snapshot.val().dt_created });
                     alertActions.success('Served');
@@ -76,7 +75,7 @@ export default class GuestRequest extends Component {
         // fb.remove();
 
         
-        let fb = firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
+        firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
             function (snapshot) {
 
                 firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
@@ -97,7 +96,7 @@ export default class GuestRequest extends Component {
 
         let list = this.state.requests.map(req => {           
             return (
-                <li key={req.key} className= {req.status=="Serving"?"list-group-item serving": req.status =="Completed"?"list-group-item completed":"list-group-item"}>
+                <li key={req.key} className= {req.status==="Serving"?"list-group-item serving": req.status ==="Completed"?"list-group-item completed":"list-group-item"}>
                     <div className="row">
                         <div className="col-md-6">
                        <div> Requesting {req.service} at Room-708 </div> 
@@ -135,12 +134,5 @@ export default class GuestRequest extends Component {
 }
 
 
-function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
-    return {
-        loggingIn
-    };
-}
-
-const connectedProduct = connect(mapStateToProps)(GuestRequest);
+const connectedProduct = connect(null)(GuestRequest);
 export { connectedProduct as GuestRequest };

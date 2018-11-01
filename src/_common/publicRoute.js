@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { MainMenu } from "../header";
+import React from 'react';
+import { Route } from 'react-router-dom';
 import {Footer} from "../footer";
 
 export const PublicRoute = ({ component: Component, ...rest }) => (

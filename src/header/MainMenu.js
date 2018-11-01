@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { loginActions } from '../_actions';
 
 class MainMenu extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
+   
     handleLogout = event => {
 
         const { dispatch } = this.props;

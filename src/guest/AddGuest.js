@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from "firebase";
-import { Modal, Button, Popover, Tooltip, OverlayTrigger, FormGroup, ControlLabel, FormControl, HelpBlock } from "react-bootstrap";
+import { Modal, Button, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 
 export default class AddGuest extends Component {
     constructor(props, context) {

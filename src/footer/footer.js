@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { loginActions } from '../_actions';
 
 export const Footer = () => {
     return (<footer id="footer" data-stellar-background-ratio="0.5">

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { loginReducer } from './loginReducer';
-import { alert } from './alert.reducer';
+import { loginReducer } from './LoginReducer';
+import { alert } from './AlertReducer';
 import {reducer as toastrReducer} from 'react-redux-toastr'
 
 

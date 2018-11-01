@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, ControlLabel,Jumbotron } from "react-bootstrap";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { loginActions } from '../_actions';
 
@@ -35,9 +35,7 @@ export default class Login extends Component {
     }
 
     render() {
-        const { loggingIn } = this.props;
-        const { email, password, submitted } = this.state;
-
+        
         return (        
             <div className="container topmargin">
             <div className="row">

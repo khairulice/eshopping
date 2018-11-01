@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ListGroup, ListGroupItem, Panel } from 'react-bootstrap'
-import { history } from './_common';
+import { history } from '../_common';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import _ from 'lodash';
@@ -13,7 +12,7 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: [],
+            services: [],
             actions: []
         }
     }
@@ -25,13 +24,13 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        var pRef = firebase.database().ref('Product');
-        pRef.on('value', snapshot => {
+        var fbService = firebase.database().ref('Service');
+        fbService.on('value', snapshot => {
             this.processServices(snapshot.val());
         })
 
-        var pRef = firebase.database().ref('GuestRequestAction');
-        pRef.on('value', snapshot => {
+        let fbGuest = firebase.database().ref('GuestRequestAction');
+        fbGuest.on('value', snapshot => {
             this.processRequestActions(snapshot.val());
         })
     }
@@ -61,7 +60,7 @@ export default class Home extends Component {
             })
             .value();
         this.setState({
-            products: messages
+            services: messages
         });
     }
     handleGuestRequest = (e) => {
@@ -79,7 +78,7 @@ export default class Home extends Component {
 
     render() {
         const { loggedIn } = this.props;
-        let list = this.state.products.map(p => {
+        let list = this.state.services.map(p => {
             return (
                 <li key={p.key} data-id={p.Name} onClick={this.handleGuestRequest.bind(this)} className="list-group-item active">
                     {p.Name}

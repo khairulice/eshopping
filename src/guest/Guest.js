@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Jumbotron } from 'react-bootstrap';
 import firebase from 'firebase';
 import _ from 'lodash';
 import { Grid, Row, Col, Table } from 'react-bootstrap'
