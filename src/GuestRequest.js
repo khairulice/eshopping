@@ -106,13 +106,13 @@ export default class GuestRequest extends Component {
                         <div className="col-md-2">
                             {req.status}
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-4">                                 
                             <Button bsStyle="success margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>
                             <Glyphicon glyph="ok" />
                             </Button>
                             <Button bsStyle="info margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>
                             <Glyphicon glyph="send" />
-                            </Button>                            
+                            </Button>                                                   
                         </div>
                     </div>
                 </li>
