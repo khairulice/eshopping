@@ -5,10 +5,22 @@ import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { store } from './_common';
+import ReduxToastr from 'react-redux-toastr'
 
 ReactDOM.render(
 <Provider store={store}>
-    <App />
+<div>
+<App />
+<ReduxToastr
+      timeOut={4000}
+      newestOnTop={false}
+      preventDuplicates
+      position="top-left"
+      transitionIn="fadeIn"
+      transitionOut="fadeOut"
+      progressBar
+      closeOnToastrClick/>
+</div>    
 </Provider>,
  document.getElementById('root'));
 

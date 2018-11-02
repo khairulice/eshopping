@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import _ from 'lodash';
-import { ListGroup, ListGroupItem, Panel, Button, Table } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Panel, Button, Table, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import {alertActions} from './_actions'
 import {history} from './_common'
@@ -107,8 +107,12 @@ export default class GuestRequest extends Component {
                             {req.status}
                         </div>
                         <div className="col-md-4">
-                            <Button bsStyle="success margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>Complete</Button>
-                            <Button bsStyle="info margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>Serve</Button>                            
+                            <Button bsStyle="success margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestComplete.bind(this)}>
+                            <Glyphicon glyph="ok" />
+                            </Button>
+                            <Button bsStyle="info margin2px action-holder" data-id={req.key} onClick={this.handleGuestRequestServe.bind(this)}>
+                            <Glyphicon glyph="send" />
+                            </Button>                            
                         </div>
                     </div>
                 </li>

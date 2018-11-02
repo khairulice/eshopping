@@ -768,13 +768,13 @@ http://www.tooplate.com/view/2106-soft-landing
 
     .custom-navbar .navbar-brand,
     .top-nav-collapse .navbar-brand {
-      color: #202020;
-      font-weight: normal;
+      color: white;
+      font-weight: bolder;      
     }
 
     .custom-navbar .nav li a,
     .top-nav-collapse .nav li a {
-      color: #656565;
+      color: #656565;     
     }
 
     .feature-image {

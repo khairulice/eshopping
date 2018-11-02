@@ -81,7 +81,7 @@ font-weight: bold;
   float: right;
 }
 .title1{
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bolder;
   color: white;
   margin: 20px 0;
@@ -93,7 +93,7 @@ font-weight: bold;
   color:red;
 }
 .serving{
-  background-color: rgb(74, 119, 144);
+  background-color: rgb(12, 161, 241);
   color: white;
   font-size:large;
 }
@@ -108,4 +108,10 @@ font-weight: bold;
   color: black;
   font-weight: normal;
   font-style: italic;
+}
+.navbar{
+background-color:rgb(49, 36, 30);
+}
+.navbar-collapse .collapse{
+  color: white;
 }

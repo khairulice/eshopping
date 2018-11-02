@@ -12,6 +12,7 @@ import { PublicRoute,ProtectedRoute } from "../_common";
 import { Product } from "../Product";
 import GuestRequest from "../GuestRequest";
 import Guest from '../Guest'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 class App extends Component {
   constructor(props) {

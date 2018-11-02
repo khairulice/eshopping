@@ -4,10 +4,10 @@ import { history } from './_common';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import _ from 'lodash';
-import TimeAgo from 'javascript-time-ago'
- 
+import TimeAgo from 'javascript-time-ago'; 
 // Load locale-specific relative date/time formatting rules.
-import en from 'javascript-time-ago/locale/en'
+import en from 'javascript-time-ago/locale/en';
+import {toastr} from 'react-redux-toastr'
 
 export default class Home extends Component {
     constructor(props) {
@@ -74,7 +74,7 @@ export default class Home extends Component {
             gid: user.email,
             dt_created: dt.toString() 
         });
-        console.log(new Date());
+        toastr.success('Service', `${e.currentTarget.dataset.id} requested`);
     }
 
     render() {
