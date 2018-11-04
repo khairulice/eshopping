@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 export const guestRequestService = {
     list,
-    reply
+    reply,
+    complete
 };
 
 function list() {     
@@ -46,4 +47,15 @@ function getData(values) {
         })
         .value();
     return items;
+}
+
+function complete(id){
+    firebase.database().ref('GuestRequest').orderByKey().equalTo(id).on("child_added",
+    function (snapshot) {
+
+        firebase.database().ref().child('/GuestRequest/' + id)
+            .set({ status: "Completed", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
+
+        alertActions.success('Completed');
+    });
 }

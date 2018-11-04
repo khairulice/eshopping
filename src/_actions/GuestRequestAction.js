@@ -3,7 +3,8 @@ import { guestRequestService } from "../_services";
 
 export const guestRequestActions = {
     list,   
-    reply
+    reply,
+    complete
 };
 
 function list(){  
@@ -26,6 +27,14 @@ function reply(id){
     return dispatch =>{
         guestRequestService.reply(id);
         dispatch({type:guestRequestConstants.GUEST_REQUEST_REPLY,id});
+    }
+    
+}
+
+function complete(id){
+    return dispatch =>{
+        guestRequestService.complete(id);
+        dispatch({type:guestRequestConstants.GUEST_REQUEST_COMPLETE,id});
     }
     
 }

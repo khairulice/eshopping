@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
 import _ from 'lodash';
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import { alertActions, guestRequestActions } from '../_actions'
 import { history } from '../_common'
 import TimeAgo from 'javascript-time-ago'
-import { Observable } from 'rxjs';
-import { guestRequestConstants } from '../_constants';
-
 // Load locale-specific relative date/time formatting rules.
 import en from 'javascript-time-ago/locale/en'
-import { guestRequestService } from '../_services';
 
 
 export default class GuestRequest extends Component {
@@ -25,42 +20,34 @@ export default class GuestRequest extends Component {
             //dispatch(guestRequestActions.list())
         });
 
-        dispatch(guestRequestActions.list())
-        
-        this.state = {
-            requests: []
-        }
+        // this.state = {
+        //     requests: []
+        // }
     }
     componentDidMount() {
-        // guestRequestService.list().subscribe({
-        //     next: x => {
-        //         console.log(x);
-        //         this.setState({
-        //             requests: x
-        //         });
-        //     }
-        // });
+        const { dispatch } = this.props;
+        dispatch(guestRequestActions.list())
     }
 
 
     handleGuestRequestServe = (e) => {
-        firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
-            function (snapshot) {
-                firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
-                    .set({ status: "Serving", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
-                alertActions.success('Served');
+        // firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
+        //     function (snapshot) {
+        //         firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
+        //             .set({ status: "Serving", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
+        //         alertActions.success('Served');
 
-                let dt = new Date();
+        //         let dt = new Date();
 
-                let ga = firebase.database().ref('GuestRequestAction');
-                ga.push({
-                    action: `Serving ${snapshot.val().service} soon.`,
-                    rqid: snapshot.key,
-                    dt_created: dt.toString()
-                });
-            });
+        //         let ga = firebase.database().ref('GuestRequestAction');
+        //         ga.push({
+        //             action: `Serving ${snapshot.val().service} soon.`,
+        //             rqid: snapshot.key,
+        //             dt_created: dt.toString()
+        //         });
+        //     });
 
-
+        dispatch(guestRequestActions.reply(e.currentTarget.dataset.id));
     }
     handleGuestRequestComplete = (e) => {
         // let ga = firebase.database().ref('GuestRequestAction').orderByChild('rqid').equalTo(e.currentTarget.dataset.id).on("child_added",
@@ -72,14 +59,16 @@ export default class GuestRequest extends Component {
         // fb.remove();
 
 
-        firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
-            function (snapshot) {
+        // firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
+        //     function (snapshot) {
 
-                firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
-                    .set({ status: "Completed", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
+        //         firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
+        //             .set({ status: "Completed", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
 
-                alertActions.success('Completed');
-            });
+        //         alertActions.success('Completed');
+        //     });
+
+        dispatch(guestRequestActions.complete(e.currentTarget.dataset.id));
 
     }
 
