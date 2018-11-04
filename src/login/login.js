@@ -7,7 +7,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-         // reset login status
+        // reset login status
         this.props.dispatch(loginActions.logout());
         this.state = {
             email: "",
@@ -31,47 +31,47 @@ export default class Login extends Component {
         const { dispatch } = this.props;
         if (email && password) {
             dispatch(loginActions.login(email, password));
-        }        
+        }
     }
 
     render() {
-        
-        return (        
+
+        return (
             <div className="container topmargin">
-            <div className="row">
-                <div className="col-md-offset-4 col-md-3 col-sm-12">                                                           
-                <form onSubmit={this.handleSubmit}>
-                <FormGroup controlId="email" bsSize="small">
-                    <ControlLabel>
-                        Email
+                <div className="row">
+                    <div className="col-md-offset-4 col-md-3 col-sm-12">
+                        <form onSubmit={this.handleSubmit}>
+                            <FormGroup controlId="email" bsSize="small">
+                                <ControlLabel>
+                                    Email
                     </ControlLabel>
-                    <FormControl
-                        autoFocus
-                        type="email"
-                        value={this.state.email}
-                        onChange={this.handleChange} />
-                </FormGroup>
-                <FormGroup controlId="password" bsSize="small">
-                    <ControlLabel>Password</ControlLabel>
-                    <FormControl
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        type="password"
-                    />
-                </FormGroup>
-                <Button
-                    block
-                    bsSize="large"
-                    bsStyle="primary"
-                    disabled={!this.validateForm()}
-                    type="submit">
-                    Login
+                                <FormControl
+                                    autoFocus
+                                    type="email"
+                                    value={this.state.email}
+                                    onChange={this.handleChange} />
+                            </FormGroup>
+                            <FormGroup controlId="password" bsSize="small">
+                                <ControlLabel>Password</ControlLabel>
+                                <FormControl
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                    type="password"
+                                />
+                            </FormGroup>
+                            <Button
+                                block
+                                bsSize="large"
+                                bsStyle="primary"
+                                disabled={!this.validateForm()}
+                                type="submit">
+                                Login
           </Button>
-            </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-       );
+        );
     }
 }
 
