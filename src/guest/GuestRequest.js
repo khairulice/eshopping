@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import { alertActions, guestRequestActions } from '../_actions'

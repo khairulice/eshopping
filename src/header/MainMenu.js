@@ -39,7 +39,7 @@ class MainMenu extends React.Component {
                                 </span>
                                 : <span>
                                     <span className="welcome">{user.email}</span>
-                                    <a href="#" onClick={this.handleLogout}>Logout</a>
+                                    <a href="/logout" onClick={this.handleLogout}>Logout</a>
                                 </span>
                             }
                         </li>
