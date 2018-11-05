@@ -46,7 +46,7 @@ export default class GuestRequest extends Component {
         //             dt_created: dt.toString()
         //         });
         //     });
-
+        const { dispatch } = this.props;
         dispatch(guestRequestActions.reply(e.currentTarget.dataset.id));
     }
     handleGuestRequestComplete = (e) => {
@@ -67,7 +67,7 @@ export default class GuestRequest extends Component {
 
         //         alertActions.success('Completed');
         //     });
-
+        const { dispatch } = this.props;
         dispatch(guestRequestActions.complete(e.currentTarget.dataset.id));
 
     }

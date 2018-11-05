@@ -13,12 +13,13 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props);    
 
     history.listen((location, action) => {
       // clear alert on location change
       //dispatch(loginActions.logout());
-    });    
+    });
+    
 
     var config = {
       apiKey: "AIzaSyApnZVKy-1FuPVrPVOfVd9lsJwKGpby9GQ",

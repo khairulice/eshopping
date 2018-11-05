@@ -5,7 +5,7 @@ import { loginActions } from '../_actions';
 
 export default class Login extends Component {
     constructor(props) {
-        super(props);
+        super(props);        
 
         // reset login status
         this.props.dispatch(loginActions.logout());

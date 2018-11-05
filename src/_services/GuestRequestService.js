@@ -17,7 +17,7 @@ function list() {
            //observer.complete();
         });       
       });
-    return observable;
+    return observable;    
 }
 
 function reply(id) {
@@ -56,6 +56,6 @@ function complete(id){
         firebase.database().ref().child('/GuestRequest/' + id)
             .set({ status: "Completed", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
 
-        alertActions.success('Completed');
+        //alertActions.success('Completed');
     });
 }
