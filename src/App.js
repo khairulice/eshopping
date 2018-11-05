@@ -19,7 +19,7 @@ class App extends Component {
       // clear alert on location change
       //dispatch(loginActions.logout());
     });
-    
+        
 
     var config = {
       apiKey: "AIzaSyApnZVKy-1FuPVrPVOfVd9lsJwKGpby9GQ",
