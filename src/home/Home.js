@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { history } from '../_common';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
-import _ from 'lodash';
 import TimeAgo from 'javascript-time-ago'; 
-// Load locale-specific relative date/time formatting rules.
 import en from 'javascript-time-ago/locale/en';
-import {toastr} from 'react-redux-toastr'
+import { toastr } from 'react-redux-toastr'
+import { guestService } from '../_services';
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             services: [],
-            actions: []
+            messages: []
         }
     }
     handleSignup = () => {
@@ -24,55 +22,25 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        var fbService = firebase.database().ref('Service');
-        fbService.on('value', snapshot => {
-            this.processServices(snapshot.val());
-        })
-
-        let fbGuest = firebase.database().ref('GuestRequestAction');
-        fbGuest.on('value', snapshot => {
-            this.processRequestActions(snapshot.val());
-        })
-    }
-
-    processRequestActions(values) {
-        let messagesVal = values;
-        let messages = _(messagesVal)
-            .keys()
-            .map(messageKey => {
-                let cloned = _.clone(messagesVal[messageKey]);
-                cloned.key = messageKey;
-                return cloned;
-            })
-            .value();
-        this.setState({
-            actions: messages
+        guestService.list().subscribe({
+            next: items => {
+                this.setState({
+                    services: items
+                });
+            }
         });
+        guestService.messages().subscribe({
+            next: items => {
+                this.setState({
+                    messages: items
+                });
+            }
+        });       
     }
-    processServices(values) {
-        let messagesVal = values;
-        let messages = _(messagesVal)
-            .keys()
-            .map(messageKey => {
-                let cloned = _.clone(messagesVal[messageKey]);
-                cloned.key = messageKey;
-                return cloned;
-            })
-            .value();
-        this.setState({
-            services: messages
-        });
-    }
+
     handleGuestRequest = (e) => {
         const { user } = this.props;
-        let dt=new Date();
-        let fb = firebase.database().ref('GuestRequest');
-        fb.push({
-            service: e.currentTarget.dataset.id,
-            status: 'Open',
-            gid: user.email,
-            dt_created: dt.toString() 
-        });
+        guestService.submitService(e.currentTarget.dataset.id,user.email);
         toastr.success('Service', `${e.currentTarget.dataset.id} requested`);
     }
 
@@ -82,12 +50,7 @@ export default class Home extends Component {
             return (
                 <li key={p.key} data-id={p.Name} onClick={this.handleGuestRequest.bind(this)} className="list-group-item active">
                     {p.Name}
-                </li>
-
-                // <Button bsStyle="primary" bsSize="large" key={p.key} data-id={p.Name} block onClick={this.handleGuestRequest.bind(this)}>
-                //     {p.Name}
-                // </Button>
-                // <div className="service" key={p.key} href="#" onClick={this.handleGuestRequest}>{p.Name}</div>
+                </li>                
             )
         });
 
@@ -97,7 +60,7 @@ export default class Home extends Component {
         // Create relative date/time formatter.
         const timeAgo = new TimeAgo('en-US')
 
-        let actions = this.state.actions.map(a => {
+        let messages = this.state.messages.map(a => {
             return (
                 <li key={a.key} data-id={a.Name} className="list-group-item">                  
                    <div> {a.action} </div> 
@@ -142,7 +105,7 @@ export default class Home extends Component {
                             <div className="col-md-6 col-sm-12">
                                 <div className="title1">Message</div>
                                 <ul className="list-group">
-                                    {actions}
+                                    {messages}
                                 </ul>
                             </div>
                         </div>

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
-import _ from 'lodash';
 import { Grid, Row, Col, Table } from 'react-bootstrap'
 import AddService from "./AddService";
 import { connect } from 'react-redux';
+import { guestService } from '../_services';
 
 export default class Service extends Component {
     constructor(props) {
@@ -12,25 +11,14 @@ export default class Service extends Component {
             services: []
         }
     }
-    componentDidMount() {
-        var pRef = firebase.database().ref('Service');
-        pRef.on('value', snapshot => {
-            this.getData(snapshot.val());
-        })
-    }
 
-    getData(values) {
-        let messagesVal = values;
-        let messages = _(messagesVal)
-            .keys()
-            .map(messageKey => {
-                let cloned = _.clone(messagesVal[messageKey]);
-                cloned.key = messageKey;
-                return cloned;
-            })
-            .value();
-        this.setState({
-            services: messages
+    componentDidMount() {
+        guestService.list().subscribe({
+            next: items => {
+                this.setState({
+                    services: items
+                });
+            }
         });
     }
 

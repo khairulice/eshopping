@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export const guestRequestService = {
     list,
     reply,
-    complete
+    complete    
 };
 
 function list() {     
