@@ -5,20 +5,22 @@ import { Badge } from 'react-bootstrap'
 export default class Stats extends Component {
     render() {
 
-        const { completed } = this.props;
+        const { completed,pending } = this.props;
 
         return (
             <div>
-                <div className="title1"> Stats</div>
-                <Badge>Completed: {completed}</Badge></div>
+                <Badge>Completed: {completed}</Badge>
+                <Badge>Pending: {pending}</Badge>
+                </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const { completed } = state.guestRequestReducer;
+    const { completed,pending } = state.guestRequestReducer;
     return {
-        completed
+        completed,
+        pending
     }
 }
 

@@ -22,8 +22,10 @@ export default class GuestRequest extends Component {
                     requests: items
                 });
                 const { dispatch } = this.props;
-                let completeditems = items.filter(r => r.status === 'Completed')
+                let completeditems = items.filter(r => r.status === 'Completed');
                 dispatch(guestRequestActions.updateCompletedNumber(completeditems.length));
+                let pendingitems = items.filter(r => r.status !== 'Completed');
+                dispatch(guestRequestActions.updatePendingNumber(pendingitems.length));
             }
         });
     }
@@ -69,13 +71,11 @@ export default class GuestRequest extends Component {
                 <div className="row">
                     <div className="col-md-8 col-sm-12">
                         <div className="title1"> Request in Queue</div>
+                        <Stats/>
                         <ul className="list-group">
                             {list}
                         </ul>
-                    </div>
-                    <div className="col-md-4 col-sm-12">
-                        <Stats/>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
