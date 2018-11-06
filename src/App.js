@@ -3,6 +3,7 @@ import './App.css';
 import { Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import firebase from "firebase";
+import Config from './firebaseConfig';
 import { history } from './_common';
 import { Home } from "./home";
 import { Login } from './login';
@@ -10,26 +11,18 @@ import { PublicRoute,ProtectedRoute } from "./_common";
 import { Service } from "./service";
 import {GuestRequest, Guest} from "./guest";
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import { loginActions } from "./_actions";
 
 class App extends Component {
   constructor(props) {
     super(props);    
 
     history.listen((location, action) => {
-      // clear alert on location change
-      //dispatch(loginActions.logout());
+      const { dispatch } = this.props;
+      dispatch(loginActions.logout());
     });
-        
 
-    var config = {
-      apiKey: "AIzaSyApnZVKy-1FuPVrPVOfVd9lsJwKGpby9GQ",
-      authDomain: "vehicle-registration-19db3.firebaseapp.com",
-      databaseURL: "https://vehicle-registration-19db3.firebaseio.com",
-      projectId: "vehicle-registration-19db3",
-      storageBucket: "vehicle-registration-19db3.appspot.com",
-      messagingSenderId: "496722656921"
-    };
-    firebase.initializeApp(config);
+    firebase.initializeApp(Config);
   }
 
   render() {

@@ -1,10 +1,8 @@
-import { guestRequestConstants, loginConstants } from '../_constants';
-import { guestRequestService } from "../_services";
+import { guestRequestConstants } from '../_constants';
 
 export const guestRequestActions = {
     updateCompletedNumber
 }
-
 
 function updateCompletedNumber(length){
     return dispatch =>{       
