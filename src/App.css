@@ -115,3 +115,12 @@ background-color:rgb(49, 36, 30);
 .navbar-collapse .collapse{
   color: white;
 }
+.badge{
+  color: greenyellow;
+  font-weight: bold;
+  margin-right: 20px;
+}
+.stats{
+  color: white;
+  font-weight: bold;
+}
