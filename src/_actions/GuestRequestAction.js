@@ -2,39 +2,13 @@ import { guestRequestConstants, loginConstants } from '../_constants';
 import { guestRequestService } from "../_services";
 
 export const guestRequestActions = {
-    list,   
-    reply,
-    complete
-};
-
-function list(){  
-  return dispatch => {
-    guestRequestService.list().subscribe({
-        next: requests => {
-            dispatch({type:guestRequestConstants.GUEST_REQUEST_LIST,requests})
-        },
-        error:err => {
-            dispatch(failure(err));
-            //dispatch(alertActions.error(error));
-        }
-    });   
-    
-};
-function failure(error) { return { type: loginConstants.LOGIN_FAILURE, error } }
+    updateCompletedNumber
 }
 
-function reply(id){
-    return dispatch =>{
-        guestRequestService.reply(id);
-        dispatch({type:guestRequestConstants.GUEST_REQUEST_REPLY,id});
-    }
-    
-}
 
-function complete(id){
-    return dispatch =>{
-        guestRequestService.complete(id);
-        dispatch({type:guestRequestConstants.GUEST_REQUEST_COMPLETE,id});
+function updateCompletedNumber(length){
+    return dispatch =>{       
+        dispatch({ type: guestRequestConstants.GUEST_REQUEST_COMPLETED, completed: length });
     }
     
 }

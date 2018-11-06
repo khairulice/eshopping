@@ -1,89 +1,46 @@
 import React, { Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux';
-import { alertActions, guestRequestActions } from '../_actions'
-import { history } from '../_common'
 import TimeAgo from 'javascript-time-ago'
-// Load locale-specific relative date/time formatting rules.
 import en from 'javascript-time-ago/locale/en'
-
+import { guestRequestService } from "../_services";
+import { guestRequestActions } from '../_actions'
+import { Stats } from './Stats';
 
 export default class GuestRequest extends Component {
     constructor(props) {
-        super(props);
+        super(props);               
 
-        const { dispatch } = this.props;
-        history.listen((location, action) => {
-            // clear alert on location change
-            dispatch(alertActions.clear());
-            //dispatch(guestRequestActions.list())
-        });
-
-        // this.state = {
-        //     requests: []
-        // }
+        this.state = {
+            requests: []
+        }
     }
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(guestRequestActions.list())
+        guestRequestService.list().subscribe({
+            next: items => {
+                this.setState({
+                    requests: items
+                });
+                const { dispatch } = this.props;
+                let completeditems = items.filter(r => r.status === 'Completed')
+                dispatch(guestRequestActions.updateCompletedNumber(completeditems.length));
+            }
+        });
     }
 
-
-    handleGuestRequestServe = (e) => {
-        // firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
-        //     function (snapshot) {
-        //         firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
-        //             .set({ status: "Serving", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
-        //         alertActions.success('Served');
-
-        //         let dt = new Date();
-
-        //         let ga = firebase.database().ref('GuestRequestAction');
-        //         ga.push({
-        //             action: `Serving ${snapshot.val().service} soon.`,
-        //             rqid: snapshot.key,
-        //             dt_created: dt.toString()
-        //         });
-        //     });
-        const { dispatch } = this.props;
-        dispatch(guestRequestActions.reply(e.currentTarget.dataset.id));
+    handleGuestRequestServe = (e) => {        
+        guestRequestService.reply(e.currentTarget.dataset.id);
     }
+
     handleGuestRequestComplete = (e) => {
-        // let ga = firebase.database().ref('GuestRequestAction').orderByChild('rqid').equalTo(e.currentTarget.dataset.id).on("child_added",
-        //     function (snapshot) {
-        //         firebase.database().ref('GuestRequestAction/' + snapshot.key).remove();
-        //     });
-
-        // let fb = firebase.database().ref('GuestRequest/' + e.currentTarget.dataset.id);
-        // fb.remove();
-
-
-        // firebase.database().ref('GuestRequest').orderByKey().equalTo(e.currentTarget.dataset.id).on("child_added",
-        //     function (snapshot) {
-
-        //         firebase.database().ref().child('/GuestRequest/' + e.currentTarget.dataset.id)
-        //             .set({ status: "Completed", service: snapshot.val().service, dt_created: snapshot.val().dt_created });
-
-        //         alertActions.success('Completed');
-        //     });
-        const { dispatch } = this.props;
-        dispatch(guestRequestActions.complete(e.currentTarget.dataset.id));
-
+        guestRequestService.complete(e.currentTarget.dataset.id);
     }
 
     render() {
-
-        // Add locale-specific relative date/time formatting rules.
-        TimeAgo.locale(en)
-
-        // Create relative date/time formatter.
+        TimeAgo.locale(en)        
         const timeAgo = new TimeAgo('en-US')
-        const { requests } = this.props;
-        console.log('requests');
-        console.log(requests);
-        let list;
-        list = requests ? requests.map(req => {
-        //list = this.state.requests.map(req => {
+
+        let list = this.state.requests.map(req => {
             return (
                 <li key={req.key} className={req.status === "Serving" ? "list-group-item serving" : req.status === "Completed" ? "list-group-item completed" : "list-group-item"}>
                     <div className="row">
@@ -105,8 +62,7 @@ export default class GuestRequest extends Component {
                     </div>
                 </li>
             )
-        })
-        : [];
+        });        
 
         return (<div> <div className="overlay"></div>
             <div className="container">
@@ -117,6 +73,9 @@ export default class GuestRequest extends Component {
                             {list}
                         </ul>
                     </div>
+                    <div className="col-md-4 col-sm-12">
+                        <Stats/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,15 +83,5 @@ export default class GuestRequest extends Component {
     }
 }
 
-
-function mapStateToProps(state) {
-    const { loggingIn } = state.loginReducer;
-    const { requests } = state.guestRequestReducer;
-    return {
-        loggingIn,
-        requests
-    };
-}
-
-const connectedProduct = connect(mapStateToProps)(GuestRequest);
+const connectedProduct = connect(null)(GuestRequest);
 export { connectedProduct as GuestRequest };

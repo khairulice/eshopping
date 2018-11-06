@@ -1,13 +1,9 @@
 import { guestRequestConstants } from '../_constants';
 
-export function guestRequestReducer(state = {}, action) {
+export function guestRequestReducer(state = { completed: 0 }, action) {
     switch (action.type) {
-        case guestRequestConstants.GUEST_REQUEST_LIST:
-            return { requests: action.requests };
-        case guestRequestConstants.GUEST_REQUEST_REPLY:
-            return state.map(r => r.id === action.id ? { ...r, status: "Serving" } : r);
-            case guestRequestConstants.GUEST_REQUEST_COMPLETE:
-            return state.map(r => r.id === action.id ? { ...r, status: "Complete" } : r);
+        case guestRequestConstants.GUEST_REQUEST_COMPLETED:
+            return { completed: action.completed };
         default:
             return state
     }
